@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\Nodes">
+      <UniqueIdentifier>{22f2605f-d5da-428f-8e87-bbada516c515}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Nodes">
+      <UniqueIdentifier>{1e4cf1e8-8699-43ff-8db1-a44c38ec965c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -21,6 +27,27 @@
     <ClCompile Include="GrammarParser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Node.cpp">
+      <Filter>Source Files\Nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="IdentifierNode.cpp">
+      <Filter>Source Files\Nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="TokenSequence.cpp">
+      <Filter>Source Files\Nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="LeftBracketNode.cpp">
+      <Filter>Source Files\Nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="RightBracketNode.cpp">
+      <Filter>Source Files\Nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="PlusNode.cpp">
+      <Filter>Source Files\Nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="MinusNode.cpp">
+      <Filter>Source Files\Nodes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GrammarParser.h">
@@ -28,6 +55,27 @@
     </ClInclude>
     <ClInclude Include="StringTokenizer.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Node.h">
+      <Filter>Header Files\Nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="IdentifierNode.h">
+      <Filter>Header Files\Nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="TokenSequence.h">
+      <Filter>Header Files\Nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="LeftBracketNode.h">
+      <Filter>Header Files\Nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="RightBracketNode.h">
+      <Filter>Header Files\Nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="PlusNode.h">
+      <Filter>Header Files\Nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="MinusNode.h">
+      <Filter>Header Files\Nodes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
