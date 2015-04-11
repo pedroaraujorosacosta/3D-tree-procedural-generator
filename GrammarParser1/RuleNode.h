@@ -1,3 +1,4 @@
+#include <vector>
 #include "Node.h"
 
 #ifndef _RULE_NODE_H_
@@ -13,6 +14,10 @@ namespace GeneratorNodes
 	public:
 		RuleNode(const Node* antecedent, const Node* consequent);
 		~RuleNode();
+
+		const Node* getConsequent() const;
+		const Node* getAntecedent() const;
+		std::string getName() const;
 
 		virtual void print() const;
 	};

@@ -11,7 +11,7 @@ namespace GeneratorNodes
 	public:
 		PlusNode();
 
-		std::string getTokenString() const;
+		std::string getName() const;
 
 		virtual void print() const;
 	};

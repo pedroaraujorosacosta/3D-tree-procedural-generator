@@ -3,6 +3,11 @@
 #include <string>
 #include <list>
 #include "GrammarParser.h" 
+#include "ProgramNode.h"
+#include "IdentifierNode.h"
+#include "GrammarGenerator.h"
+
+using namespace GeneratorNodes;
 
 std::vector<std::string> grammarText;
 
@@ -40,10 +45,32 @@ int main(int argc, char** argv)
 			// parse the grammar, get its rules
 			TokenInfo grammarRules;
 			gp.parseGrammar(grammarText, grammarRules);
-			if (grammarRules.tokenNode) grammarRules.tokenNode->print();
+
+			ProgramNode grammar = *(ProgramNode*)grammarRules.tokenNode;
+
+			// print grammar
+			std::cout << grammar.getName() << std::endl;
+
+			std::cout << std::endl << "*1st Generation*****************************" << std::endl << std::endl;
+			IdentifierNode* idNode = new IdentifierNode("s");
+			IdentifierNode* idNode2 = new IdentifierNode("A23a");
+			std::vector<const Node*> symbols;
+			symbols.push_back(idNode);
+			symbols.push_back(idNode2);
+			GrammarGenerator::generate(grammar, symbols);
+			GrammarGenerator::printSymbols(symbols);
+
+			std::cout << std::endl << "*2nd Generation*****************************" << std::endl << std::endl;
+			GrammarGenerator::generate(grammar, symbols);
+			GrammarGenerator::printSymbols(symbols);
+
+			std::cout << std::endl << "*3rd Generation*****************************" << std::endl << std::endl;
+			GrammarGenerator::generate(grammar, symbols);
+			GrammarGenerator::printSymbols(symbols);
 		}
 		else
 			std::cout << "Error: unable to open file: " << filename << std::endl;
+
 	}
 	else 
 		printInstructions(std::string(argv[0]));

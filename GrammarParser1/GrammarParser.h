@@ -10,7 +10,7 @@ struct TokenInfo
 
 	TokenInfo() { tokenNode = 0; tokenType = INVALID_TOKEN; }
 	TokenInfo(TokenType type) { tokenType = type; }
-	~TokenInfo() { if (tokenNode) delete tokenNode; }
+	~TokenInfo() { if (tokenNode) delete tokenNode; tokenNode = 0; }
 };
 
 class GrammarParser

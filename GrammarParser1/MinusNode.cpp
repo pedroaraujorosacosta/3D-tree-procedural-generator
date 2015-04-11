@@ -8,7 +8,7 @@ namespace GeneratorNodes
 
 	}
 
-	std::string MinusNode::getTokenString() const
+	std::string MinusNode::getName() const
 	{
 		return tokenString;
 	}

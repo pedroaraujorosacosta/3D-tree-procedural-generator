@@ -8,7 +8,7 @@ namespace GeneratorNodes
 
 	}
 
-	std::string LeftBracketNode::getTokenString() const
+	std::string LeftBracketNode::getName() const
 	{
 		return tokenString;
 	}

@@ -10,6 +10,7 @@ namespace GeneratorNodes
 	public:
 		Node() {}
 
+		virtual std::string getName() const { return ""; }
 		virtual void print() const = 0;
 	};
 }

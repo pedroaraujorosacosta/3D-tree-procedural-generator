@@ -1,5 +1,6 @@
 #include "TokenSequenceNode.h"
 #include <iostream>
+#include <sstream>
 
 namespace GeneratorNodes
 {
@@ -20,6 +21,24 @@ namespace GeneratorNodes
 	std::vector<Node*> TokenSequenceNode::getSequence() const
 	{
 		return sequence;
+	}
+
+	std::string TokenSequenceNode::getName() const
+	{
+		std::ostringstream oss("", std::ostringstream::ate);
+		
+		if (!sequence.empty())
+		{
+			oss << sequence[0]->getName();
+			std::vector<Node*>::const_iterator it = sequence.begin() + 1;
+			while (it != sequence.end())
+			{
+				oss << " " << (*it)->getName();
+				it++;
+			}
+		}
+
+		return oss.str();
 	}
 
 	void TokenSequenceNode::print() const

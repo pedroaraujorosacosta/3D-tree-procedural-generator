@@ -14,6 +14,8 @@ namespace GeneratorNodes
 		~ProgramNode();
 
 		std::vector<Node*> getSequence() const;
+		const Node* getConsequent(const Node* antecedent) const;
+		std::string getName() const;
 
 		virtual void print() const;
 	};

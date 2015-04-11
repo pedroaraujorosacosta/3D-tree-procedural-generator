@@ -11,7 +11,7 @@ namespace GeneratorNodes
 	public:
 		IdentifierNode(const std::string& tokenString);
 
-		std::string getName() const;
+		virtual std::string getName() const;
 
 		virtual void print() const;
 	};

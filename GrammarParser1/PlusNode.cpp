@@ -8,7 +8,7 @@ namespace GeneratorNodes
 
 	}
 
-	std::string PlusNode::getTokenString() const
+	std::string PlusNode::getName() const
 	{
 		return tokenString;
 	}

@@ -64,6 +64,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="GrammarGenerator.cpp" />
     <ClCompile Include="GrammarParser.cpp" />
     <ClCompile Include="IdentifierNode.cpp" />
     <ClCompile Include="LeftBracketNode.cpp" />
@@ -77,6 +78,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AllNodes.h" />
+    <ClInclude Include="GrammarGenerator.h" />
     <ClInclude Include="GrammarParser.h" />
     <ClInclude Include="IdentifierNode.h" />
     <ClInclude Include="LeftBracketNode.h" />

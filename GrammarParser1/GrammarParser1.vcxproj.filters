@@ -51,6 +51,9 @@
     <ClCompile Include="ProgramNode.cpp">
       <Filter>Source Files\Nodes</Filter>
     </ClCompile>
+    <ClCompile Include="GrammarGenerator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GrammarParser.h">
@@ -88,6 +91,9 @@
     </ClInclude>
     <ClInclude Include="ProgramNode.h">
       <Filter>Header Files\Nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="GrammarGenerator.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
