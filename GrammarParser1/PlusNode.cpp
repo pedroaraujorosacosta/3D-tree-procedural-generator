@@ -1,9 +1,20 @@
 #include "PlusNode.h"
+#include <iostream>
 
 namespace GeneratorNodes
 {
-	PlusNode::PlusNode(std::string tokenString) : Node(tokenString)
+	PlusNode::PlusNode() : tokenString("+")
 	{
 
+	}
+
+	std::string PlusNode::getTokenString() const
+	{
+		return tokenString;
+	}
+
+	void PlusNode::print() const
+	{
+		std::cout << tokenString;
 	}
 }

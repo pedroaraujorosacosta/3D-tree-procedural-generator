@@ -1,9 +1,20 @@
 #include "RightBracketNode.h"
+#include <iostream>
 
 namespace GeneratorNodes
 {
-	RightBracketNode::RightBracketNode(std::string tokenString) : Node(tokenString)
+	RightBracketNode::RightBracketNode() : tokenString("]")
 	{
 
+	}
+
+	std::string RightBracketNode::getTokenString() const
+	{
+		return tokenString;
+	}
+
+	void RightBracketNode::print() const
+	{
+		std::cout << tokenString;
 	}
 }

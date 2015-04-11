@@ -4,7 +4,7 @@
 #include <list>
 #include "GrammarParser.h" 
 
-std::vector<std::string> grammar;
+std::vector<std::string> grammarText;
 
 void printInstructions(const std::string& programName) 
 {
@@ -34,11 +34,13 @@ int main(int argc, char** argv)
 		{
 			// read and store the grammar file's lines
 			while (getline(ifStream, line))
-				grammar.push_back(line);
+				grammarText.push_back(line);
 			ifStream.close();
 
-			// parse the grammar
-			gp.parseGrammar(grammar);
+			// parse the grammar, get its rules
+			TokenInfo grammarRules;
+			gp.parseGrammar(grammarText, grammarRules);
+			if (grammarRules.tokenNode) grammarRules.tokenNode->print();
 		}
 		else
 			std::cout << "Error: unable to open file: " << filename << std::endl;

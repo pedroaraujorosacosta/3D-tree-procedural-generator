@@ -1,14 +1,20 @@
 #include "IdentifierNode.h"
+#include <iostream>
 
 namespace GeneratorNodes
 {
-	IdentifierNode::IdentifierNode(std::string tokenString) : Node(tokenString)
+	IdentifierNode::IdentifierNode(const std::string& tokenString)
 	{
-
+		name = tokenString;
 	}
 
-	std::string IdentifierNode::getName()
+	std::string IdentifierNode::getName() const
 	{
-		return tokenString;
+		return name;
+	}
+
+	void IdentifierNode::print() const
+	{
+		std::cout << name;
 	}
 }

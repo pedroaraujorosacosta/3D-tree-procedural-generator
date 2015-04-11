@@ -3,9 +3,38 @@
 #include <iostream>
 #include "GrammarParser.h"
 #include "StringTokenizer.h"
+#include "AllNodes.h"
 
+using namespace GeneratorNodes;
 
-GrammarParser::GrammarParser() : parserState(READING_RULES)
+// SyntaxException class, so we can communicate what kind of syntax error we found.
+class SyntaxException
+{
+	std::string errorMsg;
+
+public:
+	SyntaxException(const std::string& errorMsg)
+	{
+		this->errorMsg = errorMsg;
+	}
+
+	std::string getErrorMsg()
+	{
+		return errorMsg;
+	}
+
+	static const std::string SYN_E_ANTECEDENT;
+	static const std::string SYN_E_ASSOC_SYMB;
+	static const std::string SYN_E_CON_NO_VAR;
+	static const std::string SYN_E_CON_INVALID_SYMBOL;
+};
+
+const std::string SyntaxException::SYN_E_ANTECEDENT = "Antecendent must be a valid variable name";
+const std::string SyntaxException::SYN_E_ASSOC_SYMB = "No association symbols after antecedent";
+const std::string SyntaxException::SYN_E_CON_NO_VAR = "Consequent must have at least one variable";
+const std::string SyntaxException::SYN_E_CON_INVALID_SYMBOL = "Consequent has an invalid symbol";
+
+GrammarParser::GrammarParser()
 {
 
 }
@@ -15,85 +44,104 @@ GrammarParser::~GrammarParser()
 
 }
 
-bool GrammarParser::parseGrammar(const std::vector<std::string>& grammar)
+bool GrammarParser::parseGrammar(const std::vector<std::string>& grammar, TokenInfo& parsedTree)
 {
+	std::vector<Node*> lines;
 	int lineNum = 1;
 	std::vector<std::string>::const_iterator it = grammar.begin();
 
 	while (it != grammar.end())
 	{
-		if (parseLine((*it++)) == INVALID_TOKEN)
+		try 
 		{
-			std::cout << "Invalid syntax on line " << lineNum << std::endl;
+			parseLine(*it++, parsedTree);
+			if (parsedTree.tokenType == TokenInfo::TokenType::RULE_TOKEN)
+				lines.push_back(parsedTree.tokenNode);
+		}
+		catch (SyntaxException e)
+		{
+			std::cout << "Invalid syntax on line " << lineNum << ": " << e.getErrorMsg() << "." << std::endl;
 			return false;
 		}
+
 		lineNum++;
 	}
+
+	parsedTree.tokenNode = new ProgramNode(lines);
 
 	return true;
 }
 
-GrammarParser::TokenType GrammarParser::parseLine(const std::string& line)
+void GrammarParser::parseLine(const std::string& line, TokenInfo& parsedTree)
 {
-	TokenType ret = INVALID_TOKEN;
-
 	// strip whitespaces & tokenize line
 	std::vector<std::string> tokenStrings;
 	StringTokenizer::tokenize(line, tokenStrings, StringTokenizer::WHITESPACES);
 
-	for (std::vector<std::string>::iterator it = tokenStrings.begin(); it != tokenStrings.end(); it++)
-		std::cout << "tokenString: " << *it << std::endl;
-
 	if (tokenStrings.size() > 0)
-	{
-		if (parseRule(tokenStrings))
-		{
-			ret = RULE_TOKEN;
-		}
-	}
+		parseRule(tokenStrings, parsedTree);
 	else
-		ret = EMPTY_TOKEN;
-
-	return ret;
+		parsedTree.tokenType = TokenInfo::TokenType::EMPTY_TOKEN;
 }
 
-bool GrammarParser::parseRule(const std::vector<std::string>& tokenStrings)
+bool GrammarParser::parseRule(const std::vector<std::string>& tokenStrings, TokenInfo& parsedTree)
 {
-	bool ret = true;
+	IdentifierNode* antecedent;
 	unsigned int i = 0;
 
-	std::cout << "parse rule begin" << std::endl;
-	
+	// check if the antecedent is a valid variable name
+	if (!parseVar(tokenStrings[0]))
+		throw SyntaxException(SyntaxException::SYN_E_ANTECEDENT);
+	antecedent = new IdentifierNode(tokenStrings[0]);
+		
 	// rules have the form A := A B, so check if the second token string corresponds to the ':=' association symbols
-	// and the first to a valid variable name
-	if (parseVar(tokenStrings[0]) && parseAssociationSymbols(tokenStrings[1]))
+	if (tokenStrings.size() < 2 || !parseAssociationSymbols(tokenStrings[1])) 
+		throw SyntaxException(SyntaxException::SYN_E_ASSOC_SYMB);
+
+	// a consequent has at least one variable and no invalid tokens
+	bool foundInvalidToken = false;
+	bool foundVariable = false;
+	if (tokenStrings.size() < 3)
+		throw SyntaxException(SyntaxException::SYN_E_CON_NO_VAR);
+
+	std::vector<Node*> consequentNodes;
+	for (std::vector<std::string>::const_iterator it = tokenStrings.begin()+2; it != tokenStrings.end(); it++)
 	{
-		// a consequent has at least one variable
-		bool foundInvalidToken = false;
-		bool foundVariable = false;
-		for (std::vector<std::string>::const_iterator it = tokenStrings.begin()+2; it != tokenStrings.end(); it++)
+		Node* node = 0;
+		if (parseVar(*it))
 		{
-			if (parseVar(*it)) {
-				std::cout << "Found a var: " << *it << std::endl;
-				foundVariable = true;
-			}
-			else if (!parseSymbol(*it)) {
-				std::cout << "foud in" << std::endl;
-				foundInvalidToken = true;
-			}
+			node = new IdentifierNode(*it);
+			foundVariable = true;
 		}
+		else if (parseLeftBracket(*it))
+			node = new LeftBracketNode();
+		else if (parseRightBracket(*it))
+			node = new RightBracketNode();
+		else if (parsePlusSymbol(*it))
+			node = new PlusNode();
+		else if (parseMinusSymbol(*it))
+			node = new MinusNode();
+		else 
+			foundInvalidToken = true;
 
-		if (foundInvalidToken || !foundVariable)
-			ret = false;
+		if (node)
+			consequentNodes.push_back(node);
 	}
-	else
-		ret = false;
+	TokenSequenceNode* consequent = new TokenSequenceNode(consequentNodes);
 
-	std::cout << "parse rule end" << std::endl;
+	if (!foundVariable)
+		throw SyntaxException(SyntaxException::SYN_E_CON_NO_VAR);
 
-	return ret;
+	if (foundInvalidToken)
+		throw SyntaxException(SyntaxException::SYN_E_CON_INVALID_SYMBOL);
+
+	parsedTree.tokenNode = new RuleNode(antecedent, consequent);
+	parsedTree.tokenType = TokenInfo::RULE_TOKEN;
+
+	return true;
 }
 
+// Lexer for variables
 bool GrammarParser::parseVar(const std::string& str)
 {
 	std::locale loc;
@@ -111,17 +159,46 @@ bool GrammarParser::parseVar(const std::string& str)
 	return ret;
 }
 
-bool GrammarParser::parseSymbol(const std::string& str)
+// Lexer for the two ':=' association symbols of our rules
+bool GrammarParser::parseAssociationSymbols(const std::string& str)
 {
-	if (str.length() == 1 && str[0] == '[' || str[0] == ']' || str[0] == '+' || str[0] == '-')
+	if (str.length() == 2 && str[0] == ':' || str[1] == '=')
 		return true;
 	else
 		return false;
 }
 
-bool GrammarParser::parseAssociationSymbols(const std::string& str)
+// Lexer for left bracket
+bool GrammarParser::parseLeftBracket(const std::string& str)
 {
-	if (str.length() == 2 && str[0] == ':' || str[1] == '=')
+	if (str.length() == 1 && str[0] == '[')
+		return true;
+	else
+		return false;
+}
+
+// Lexer for right bracket
+bool GrammarParser::parseRightBracket(const std::string& str)
+{
+	if (str.length() == 1 && str[0] == ']')
+		return true;
+	else
+		return false;
+}
+
+// Lexer for plus symbol
+bool GrammarParser::parsePlusSymbol(const std::string& str)
+{
+	if (str.length() == 1 && str[0] == '+')
+		return true;
+	else
+		return false;
+}
+
+// Lexer for minus symbol
+bool GrammarParser::parseMinusSymbol(const std::string& str)
+{
+	if (str.length() == 1 && str[0] == '-')
 		return true;
 	else
 		return false;

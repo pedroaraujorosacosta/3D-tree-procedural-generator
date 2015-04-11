@@ -1,10 +1,19 @@
 #include "Node.h"
 
+#ifndef _PLUS_NODE_H_
+#define _PLUS_NODE_H_
+
 namespace GeneratorNodes
 {
 	class PlusNode : public Node
 	{
+		const std::string tokenString;
 	public:
-		PlusNode(std::string tokenString);
+		PlusNode();
+
+		std::string getTokenString() const;
+
+		virtual void print() const;
 	};
 }
+#endif

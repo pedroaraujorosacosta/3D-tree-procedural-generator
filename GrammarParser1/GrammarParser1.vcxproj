@@ -69,21 +69,25 @@
     <ClCompile Include="LeftBracketNode.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MinusNode.cpp" />
-    <ClCompile Include="Node.cpp" />
     <ClCompile Include="PlusNode.cpp" />
+    <ClCompile Include="ProgramNode.cpp" />
     <ClCompile Include="RightBracketNode.cpp" />
-    <ClCompile Include="TokenSequence.cpp" />
+    <ClCompile Include="RuleNode.cpp" />
+    <ClCompile Include="TokenSequenceNode.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AllNodes.h" />
     <ClInclude Include="GrammarParser.h" />
     <ClInclude Include="IdentifierNode.h" />
     <ClInclude Include="LeftBracketNode.h" />
     <ClInclude Include="MinusNode.h" />
     <ClInclude Include="Node.h" />
     <ClInclude Include="PlusNode.h" />
+    <ClInclude Include="ProgramNode.h" />
     <ClInclude Include="RightBracketNode.h" />
+    <ClInclude Include="RuleNode.h" />
     <ClInclude Include="StringTokenizer.h" />
-    <ClInclude Include="TokenSequence.h" />
+    <ClInclude Include="TokenSequenceNode.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
