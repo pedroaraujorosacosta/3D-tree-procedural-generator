@@ -69,4 +69,18 @@ namespace GeneratorNodes
 			std::cout << std::endl;
 		}
 	}
+
+	void ProgramNode::accept(RendererVisitor* rv) const
+	{
+		
+	}
+
+	void ProgramNode::accept(StandardOutputVisitor* stdov) const
+	{
+		for (std::vector<Node*>::const_iterator it = sequence.begin(); it != sequence.end(); it++)
+		{
+			(*it)->accept(stdov);
+			std::cout << std::endl;
+		}
+	}
 }

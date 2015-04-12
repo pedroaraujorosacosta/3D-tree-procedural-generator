@@ -1,3 +1,6 @@
+#ifndef _STR_TOKENIZER_H_
+#define _STR_TOKENIZER_H_
+
 #include <string>
 #include <vector>
 
@@ -26,3 +29,4 @@ public:
 };
 
 const std::string StringTokenizer::WHITESPACES = " \t\n\v\f\r";
+#endif

@@ -1,8 +1,8 @@
-#include <vector>
-#include "ProgramNode.h"
-
 #ifndef _GRAM_GEN_H_
 #define _GRAM_GEN_H_
+
+#include <vector>
+#include "ProgramNode.h"
 
 class GrammarGenerator
 {

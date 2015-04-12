@@ -1,3 +1,6 @@
+#ifndef _GRAM_PARSER_H_
+#define _GRAM_PARSER_H_
+
 #include <vector>
 #include "Node.h"
 
@@ -32,3 +35,4 @@ public:
 
 	bool parseGrammar(const std::vector<std::string>& grammar, TokenInfo& parsedTree);
 };
+#endif

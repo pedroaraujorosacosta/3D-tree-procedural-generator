@@ -72,8 +72,10 @@
     <ClCompile Include="MinusNode.cpp" />
     <ClCompile Include="PlusNode.cpp" />
     <ClCompile Include="ProgramNode.cpp" />
+    <ClCompile Include="RendererVisitor.cpp" />
     <ClCompile Include="RightBracketNode.cpp" />
     <ClCompile Include="RuleNode.cpp" />
+    <ClCompile Include="StandardOutputVisitor.cpp" />
     <ClCompile Include="TokenSequenceNode.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -86,10 +88,13 @@
     <ClInclude Include="Node.h" />
     <ClInclude Include="PlusNode.h" />
     <ClInclude Include="ProgramNode.h" />
+    <ClInclude Include="RendererVisitor.h" />
     <ClInclude Include="RightBracketNode.h" />
     <ClInclude Include="RuleNode.h" />
+    <ClInclude Include="StandardOutputVisitor.h" />
     <ClInclude Include="StringTokenizer.h" />
     <ClInclude Include="TokenSequenceNode.h" />
+    <ClInclude Include="NodeVisitor.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

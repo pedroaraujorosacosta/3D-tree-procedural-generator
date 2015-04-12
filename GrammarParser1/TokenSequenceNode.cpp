@@ -49,4 +49,18 @@ namespace GeneratorNodes
 			std::cout << " ";
 		}
 	}
+
+	void TokenSequenceNode::accept(RendererVisitor* rv) const
+	{
+		
+	}
+
+	void TokenSequenceNode::accept(StandardOutputVisitor* stdov) const
+	{
+		for (std::vector<Node*>::const_iterator it = sequence.begin(); it != sequence.end(); it++)
+		{
+			(*it)->accept(stdov);
+			std::cout << " ";
+		}
+	}
 }

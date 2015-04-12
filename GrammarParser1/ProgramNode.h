@@ -1,8 +1,8 @@
-#include <vector>
-#include "Node.h"
-
 #ifndef _PROGRAM_NODE_H_
 #define _PROGRAM_NODE_H_
+
+#include <vector>
+#include "Node.h"
 
 namespace GeneratorNodes
 {
@@ -18,6 +18,9 @@ namespace GeneratorNodes
 		std::string getName() const;
 
 		virtual void print() const;
+
+		virtual void accept(RendererVisitor* rv) const;
+		virtual void accept(StandardOutputVisitor* stdo) const;
 	};
 }
 #endif

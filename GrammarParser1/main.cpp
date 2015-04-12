@@ -6,6 +6,8 @@
 #include "ProgramNode.h"
 #include "IdentifierNode.h"
 #include "GrammarGenerator.h"
+#include "RendererVisitor.h"
+#include "StandardOutputVisitor.h"
 
 using namespace GeneratorNodes;
 
@@ -49,7 +51,8 @@ int main(int argc, char** argv)
 			ProgramNode grammar = *(ProgramNode*)grammarRules.tokenNode;
 
 			// print grammar
-			std::cout << grammar.getName() << std::endl;
+			grammar.accept(new StandardOutputVisitor());
+			//std::cout << grammar.getName() << std::endl;
 
 			std::cout << std::endl << "*1st Generation*****************************" << std::endl << std::endl;
 			IdentifierNode* idNode = new IdentifierNode("s");

@@ -17,4 +17,14 @@ namespace GeneratorNodes
 	{
 		std::cout << tokenString;
 	}
+
+	void RightBracketNode::accept(RendererVisitor* rv) const
+	{
+		
+	}
+
+	void RightBracketNode::accept(StandardOutputVisitor* stdov) const
+	{
+		std::cout << tokenString;
+	}
 }

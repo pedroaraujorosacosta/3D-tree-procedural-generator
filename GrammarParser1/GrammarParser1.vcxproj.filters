@@ -54,6 +54,12 @@
     <ClCompile Include="GrammarGenerator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="RendererVisitor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="StandardOutputVisitor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GrammarParser.h">
@@ -93,6 +99,15 @@
       <Filter>Header Files\Nodes</Filter>
     </ClInclude>
     <ClInclude Include="GrammarGenerator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RendererVisitor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="StandardOutputVisitor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="NodeVisitor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

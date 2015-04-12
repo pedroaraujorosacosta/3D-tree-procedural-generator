@@ -17,4 +17,14 @@ namespace GeneratorNodes
 	{
 		std::cout << name;
 	}
+
+	void IdentifierNode::accept(RendererVisitor* rv) const
+	{
+		
+	}
+
+	void IdentifierNode::accept(StandardOutputVisitor* stdov) const
+	{
+		std::cout << name;
+	}
 }
